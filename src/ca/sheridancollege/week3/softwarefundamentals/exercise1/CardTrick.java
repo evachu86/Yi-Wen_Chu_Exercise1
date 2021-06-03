@@ -38,8 +38,10 @@ public class CardTrick {
 		Scanner input = new Scanner(System.in);
 
 		try {
-			String userSuit = inqSuit(input);
-			int userValue = inqValue(input);
+            		Card pickedCard = new Card();
+			pickedCard.setSuit(inqSuit(input));
+			pickedCard.setValue(inqValue(input));
+			System.out.println("You pick " +pickedCard);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
