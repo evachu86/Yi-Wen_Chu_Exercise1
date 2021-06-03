@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * Name: Yi-Wen Chu    991624614
+ * Program: Computer Systems Technology -
+ * 	Software Development and Network Engineering
+ * File: Card.java
+ * Main class: CardTrick.java
+ * 
+ * Date: Jun 4, 2021
  */
 package ca.sheridancollege.week3.softwarefundamentals.exercise1;
 
@@ -13,14 +17,19 @@ package ca.sheridancollege.week3.softwarefundamentals.exercise1;
  * This code is to be used in ICE1. When you create your own branch,
  * add your name as a modifier.
  * @author dancye
+ * Modified by @author Yi-Wen Chu, June 4, 2021.
  */
 public class Card {
 
    private String suit; //clubs, spades, diamonds, hearts
    private int value;//1-13
 
+   /** The Constant SUITS. */
    public static final String [] SUITS = {"Hearts", "Diamonds", "Spades", "Clubs"};
+    
     /**
+     * Gets the suit.
+     *
      * @return the suit
      */
     public String getSuit() {
@@ -28,6 +37,8 @@ public class Card {
     }
 
     /**
+     * Sets the suit.
+     *
      * @param suit the suit to set
      */
     public void setSuit(String suit) {
@@ -35,6 +46,8 @@ public class Card {
     }
 
     /**
+     * Gets the value.
+     *
      * @return the value
      */
     public int getValue() {
@@ -42,12 +55,47 @@ public class Card {
     }
 
     /**
+     * Sets the value.
+     *
      * @param value the value to set
      */
     public void setValue(int value) {
         this.value = value;
     }
-   
-   
+
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
+	@Override
+	public String toString() {
+		String valueStr = null;
+		switch (value) {
+			case 1: valueStr = "Ace";
+				break;
+			case 11: valueStr = "Jack";
+				break;
+			case 12: valueStr = "Queen";
+				break;
+			case 13: valueStr = "King";
+				break;
+			default: valueStr = Integer.toString(value);
+		}
+		return getSuit() +" "+ valueStr;
+	}
     
+	
+	/**
+	 * Compare the input object if it is the same card.
+	 *
+	 * @param obj the compared card.
+	 * @return true, if it is the same card.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		Card inputObj = (Card) obj;
+		return suit.equalsIgnoreCase(inputObj.getSuit()) && 
+				value == inputObj.getValue();
+	}
 }
