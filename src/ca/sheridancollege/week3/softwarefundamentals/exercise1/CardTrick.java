@@ -10,6 +10,7 @@
  */
 package ca.sheridancollege.week3.softwarefundamentals.exercise1;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class CardTrick {
 
 	public static void main(String[] args) {
 		Card[] magicHand = new Card[7];
+		StringBuilder magicHandStr = new StringBuilder();
 
 		for (int i = 0; i < magicHand.length; i++) {
 			Card c = new Card();
@@ -32,27 +34,40 @@ public class CardTrick {
 			c.setValue((int) (Math.random() * 13) + 1);
 			// Set a random suit for card.
 			c.setSuit(Card.SUITS[(int) (Math.random() * 3)]);
+			
+			// Use for result report later.
+			magicHandStr.append(c).append(", ");
 		}
 
 		// insert code to ask the user for Card value and suit, create their card
 		Scanner input = new Scanner(System.in);
-
 		try {
-            		Card pickedCard = new Card();
-			pickedCard.setSuit(inqSuit(input));
-			pickedCard.setValue(inqValue(input));
-			System.out.println("You pick " +pickedCard);
+			Card luckyCard = inqByLuckyCard(input);
+			System.out.println("Your card is " +luckyCard+ "\n");
+			
+			System.out.println("The cards in magic hand are: \n" +
+					magicHandStr.deleteCharAt(magicHandStr.length()-2));
+			// and search magicHand here
+			if(Arrays.stream(magicHand)
+					.anyMatch(luckyCard::equals)) {
+				// Then report the result here
+				System.out.println("You WIN!!!!");
+			} else {
+				System.out.println("You lose.");
+			}
+			
+
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			input.close();
 		}
 
-		// and search magicHand here
-		// Then report the result here
+		
 	}
 
-	public static String inqSuit(Scanner input) {
+	public static int inqSuit(Scanner input) {
 
 		// Message for asking the user to pick a suit. 
 		System.out.println("Pick a suit: (Answer by the number.)");
@@ -64,12 +79,9 @@ public class CardTrick {
 		
 		// Exception handling while picking a suit.
 		// Only 1 to 4 available.
-		String inputSuit = null;
+		int inputSuit = 0;
 		try {
-			inputSuit = Card.SUITS[input.nextInt()-1];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new IllegalArgumentException(
-					"You pick a suit not in the list.", e);
+			inputSuit = input.nextInt();
 		} catch (InputMismatchException e) {
 			throw new IllegalArgumentException(
 					"Please answer the picked suit by integer number.", e);
@@ -98,15 +110,42 @@ public class CardTrick {
 		int inputValue = 0;
 		try {
 			inputValue = input.nextInt();
-			if(inputValue > 13 || inputValue < 1)
-				throw new IllegalArgumentException(
-						"The value is only available from 1 to 13.");
 		} catch (InputMismatchException e) {
 			throw new IllegalArgumentException(
 					"Please answer the value by integer number.", e);
 		}
 		
 		return inputValue;
+	}
+	
+	public static Card inqByLuckyCard(Scanner input) {
+		Card[] luckyCard = { new Card(1,4),
+								new Card(3,11),
+								new Card(4,1),
+								new Card(2,7) }; 
+		
+		// Message for asking the user to pick a suit. 
+		System.out.println("Pick a card: (Answer by the number.)");
+		System.out.print("1. " + luckyCard[0] + 
+							"\n2. " + luckyCard[1] + 
+							"\n3. " + luckyCard[2] + 
+							"\n4. " + luckyCard[3] + 
+							"\nYou pick: ");
+		
+		// Exception handling while picking a suit.
+		// Only 1 to 4 available.
+		Card pickedCard = null;
+		try {
+			pickedCard = luckyCard[input.nextInt()-1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IllegalArgumentException(
+					"You pick a card not in the list.", e);
+		} catch (InputMismatchException e) {
+			throw new IllegalArgumentException(
+					"Please answer the picked card by integer number.", e);
+		}
+		
+		return pickedCard;
 	}
 
 }

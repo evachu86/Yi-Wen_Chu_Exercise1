@@ -26,7 +26,15 @@ public class Card {
 
    /** The Constant SUITS. */
    public static final String [] SUITS = {"Hearts", "Diamonds", "Spades", "Clubs"};
-    
+
+   public Card() {}
+   
+   public Card(int suitNo, int value) {
+	   setSuit(suitNo);
+	   setValue(value);
+   }
+   
+   
     /**
      * Gets the suit.
      *
@@ -44,6 +52,24 @@ public class Card {
     public void setSuit(String suit) {
         this.suit = suit;
     }
+    
+    /**
+     * Sets the suit by index.
+     * 1 = Hearts
+     * 2 = Diamonds
+     * 3 = Spades
+     * 4 = Clubs
+     *
+     * @param suitNo the number of suit index.
+     */
+    public void setSuit(int suitNo) {
+        try {
+        	this.suit = SUITS[suitNo-1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IllegalArgumentException(
+					"You pick a suit not in the list.", e);
+		}
+    }
 
     /**
      * Gets the value.
@@ -60,6 +86,9 @@ public class Card {
      * @param value the value to set
      */
     public void setValue(int value) {
+    	if(value > 13 || value < 1)
+			throw new IllegalArgumentException(
+					"The value is only available from 1 to 13.");
         this.value = value;
     }
 
@@ -87,9 +116,9 @@ public class Card {
     
 	
 	/**
-	 * Compare the input object if it is the same card.
+	 * Compare the input card if it is the same card.
 	 *
-	 * @param obj the compared card.
+	 * @param obj the input card.
 	 * @return true, if it is the same card.
 	 */
 	@Override
