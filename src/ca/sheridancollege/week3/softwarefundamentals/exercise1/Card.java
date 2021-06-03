@@ -26,13 +26,6 @@ public class Card {
 
    /** The Constant SUITS. */
    public static final String [] SUITS = {"Hearts", "Diamonds", "Spades", "Clubs"};
-
-   public Card() {}
-   
-   public Card(int suitNo, int value) {
-	   setSuit(suitNo);
-	   setValue(value);
-   }
    
    
     /**
