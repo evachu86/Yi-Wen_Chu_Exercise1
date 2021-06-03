@@ -32,6 +32,8 @@ public class CardTrick {
 			c.setValue((int) (Math.random() * 13) + 1);
 			// Set a random suit for card.
 			c.setSuit(Card.SUITS[(int) (Math.random() * 3)]);
+			
+			magicHand[i] = c;
 		}
 
 		// insert code to ask the user for Card value and suit, create their card
