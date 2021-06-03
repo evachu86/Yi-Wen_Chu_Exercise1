@@ -57,8 +57,6 @@ public class CardTrick {
 				System.out.println("You lose.");
 			}
 			
-
-			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
