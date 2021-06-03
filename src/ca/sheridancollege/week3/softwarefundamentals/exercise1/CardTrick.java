@@ -35,6 +35,7 @@ public class CardTrick {
 			// Set a random suit for card.
 			c.setSuit(Card.SUITS[(int) (Math.random() * 3)]);
 			
+			magicHand[i] = c;
 			// Use for result report later.
 			magicHandStr.append(c).append(", ");
 		}
